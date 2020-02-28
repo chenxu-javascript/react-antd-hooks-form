@@ -1,0 +1,66 @@
+{
+  "name": "hooks-form",
+  "version": "1.0.0",
+  "description": "form表单 基于二次封装",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn clean && yarn build:modern && yarn build:ie11 && yarn build:min",
+    "build:modern": "rollup -c",
+    "build:min": "rollup -c rollup.min.config.js",
+    "build:ie11": "rollup -c rollup.ie11.config.js"
+  },
+  "keywords": [
+    "react-hooks-form"
+  ],
+  "author": "chenxu",
+  "license": "ISC",
+  "devDependencies": {
+    "antd": "^3.26.12",
+    "@types/classnames": "^2.2.9",
+    "@babel/core": "^7.8.4",
+    "@types/react-resizable": "^1.7.2",
+    "@types/node": "^13.7.0",
+    "classnames": "^2.2.6",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/runtime-corejs3": "^7.8.4",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@types/jest": "^25.1.3",
+    "@types/react": "^16.9.22",
+    "@types/react-dom": "^16.9.5",
+    "react-resizable": "^1.10.1",
+    "@types/react-test-renderer": "^16.9.2",
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
+    "eslint": "^5.4.0",
+    "eslint-config-umi": "^1.4.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-hook-form": "^4.8.2",
+    "react-test-renderer": "^16.12.0",
+    "rollup": "^1.31.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript2": "^0.26.0"
+  },
+  "peerDependencies": {
+    "antd": "^3.26.12",
+    "react": "^16.8.0",
+    "react-hook-form": "^4.8.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "rollup-plugin-less": "^1.1.2"
+  }
+}

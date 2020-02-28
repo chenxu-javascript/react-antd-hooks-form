@@ -1,0 +1,85 @@
+.ys-table {
+  width: 100%;
+  overflow: auto;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.ys-table :global .ant-table-thead > tr > th {
+  padding: 4px 6px;
+  color: #7ab2ff;
+  font-weight: bold;
+  white-space: nowrap;
+  background: #f0f8ff;
+}
+.ys-table :global .ant-table-tbody > tr > td {
+  cursor: auto;
+  padding: 8px 6px;
+  white-space: nowrap;
+}
+.ys-table .ys-table-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+ine .hooks-form-item .hooks-form-item-wrapper {
+  display: inline-block;
+  vertical-align: top;
+}
+:global .ant-form-item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  list-style: none;
+  font-feature-settings: 'tnum';
+  margin-bottom: 24px;
+  vertical-align: top;
+}
+:global .ant-form-item > label {
+  position: relative;
+}
+:global .hooks-form-item-label {
+  display: inline-block;
+  width: 72px;
+  overflow: hidden;
+  line-height: 39.9999px;
+  white-space: nowrap;
+  text-align: right;
+  vertical-align: middle;
+  word-break: break-all;
+  word-wrap: break-word;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 30px;
+}
+:global .hooks-form-item-label > label::after {
+  content: ':';
+  position: relative;
+  top: -0.5px;
+  margin: 0 8px 0 2px;
+}
+:global .hooks-form-item-wrapper {
+  line-height: 30px;
+  width: 240px;
+}
+:global .hooks-row {
+  position: relative;
+  height: auto;
+  margin-right: 0;
+  margin-left: 0;
+  zoom: 1;
+  display: block;
+  box-sizing: border-box;
+}
+:global .hooks-row::before,
+:global .hooks-row::after {
+  display: table;
+  content: '';
+}
+:global .hooks-col {
+  position: relative;
+  min-height: 1px;
+}
