@@ -1,8 +1,10 @@
 {
-  "name": "hooks-form",
+  "name": "antd-hooks-form",
   "version": "1.0.0",
   "description": "form表单 基于二次封装",
-  "main": "index.js",
+  "main": "dist/hook-form.js",
+  "module": "dist/hook-form.es.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -62,5 +64,13 @@
   },
   "dependencies": {
     "rollup-plugin-less": "^1.1.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenxu-javascript/react-antd-hooks-form.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chenxu-javascript/react-antd-hooks-form/issues"
+  },
+  "homepage": "https://github.com/chenxu-javascript/react-antd-hooks-form#readme"
 }
