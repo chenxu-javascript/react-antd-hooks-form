@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { DataTable } from 'antd-hooks-form';
-import 'antd-hooks-form/dist/antd-hooks-form.css';
+// import 'antd-hooks-form/dist/antd-hooks-form.css';
 // import Search from "@components/DataTable/Search";
 // import Table from "@components/DataTable/Table";
 import { getTableColumns } from "./contanst";

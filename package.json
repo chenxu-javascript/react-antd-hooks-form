@@ -2,7 +2,7 @@
   "name": "antd-hooks-form",
   "version": "1.0.0",
   "description": "form表单 基于二次封装",
-  "main": "dist/antd-hooks-form.es.js",
+  "main": "src/index.ts",
   "module": "dist/antd-hooks-form.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -63,6 +63,7 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "moment": "^2.24.0",
     "rollup-plugin-less": "^1.1.2"
   },
   "repository": {

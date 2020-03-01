@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.css';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 
 const BasicLayout: React.FC = props => {
   return (
