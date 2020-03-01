@@ -3,12 +3,14 @@ import { DatePicker } from "antd";
 import moment from "moment";
 import { isObject } from "./../../../utils/utils";
 import { IProps } from "./interface";
+
 const format: any = {
   year: "YYYY",
   month: "YYYY-MM",
   date: "YYYY-MM-DD",
   time: "YYYY-MM-DD HH:mm:ss"
 };
+
 const DatePickerComponent: React.FC<IProps> = props => {
   const { placeholder = "请选择", mode = "date", onChange, ...otherparams } = props;
   const { value, defaultValue } = otherparams;

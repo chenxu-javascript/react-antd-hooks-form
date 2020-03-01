@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
-import { Checkbox, DatePicker, Input, InputNumber, Radio, Select } from 'antd';
+import React, { useState, useEffect, Fragment } from 'react';
+import { useFormContext, Controller, useForm, FormContext } from 'react-hook-form';
+import { Checkbox, DatePicker, Input, InputNumber, Radio, Select, Button, Table } from 'antd';
 import moment from 'moment';
-import 'classnames';
-import 'react-resizable';
+import classnames from 'classnames';
+import { Resizable } from 'react-resizable';
 
 var FormItems = /*#__PURE__*/Object.freeze({
     __proto__: null,
@@ -74,6 +74,56 @@ const BaseForm = props => {
  * @param {*} fn
  * @param {*} cod
  */
+const bsRunWhen = (fn, cod) => {
+    if (cod()) {
+        fn();
+        return;
+    }
+    var i = 0;
+    var interval = setInterval(function () {
+        i++;
+        if (i > 500) {
+            clearInterval(interval);
+        }
+        else if (cod()) {
+            fn();
+            clearInterval(interval);
+        }
+    }, 30);
+};
+/**
+ * 循环检测 cod 达成条件 await bsCheck(() => {})
+ * @param {*} cod
+ */
+const bsCheck = (cod) => {
+    return new Promise(function (resolve) {
+        bsRunWhen(resolve, cod);
+    });
+};
+/**
+ * 异步返回数据
+ * @param {*} data 数据
+ * @param {*} time 延迟时间
+ */
+const bsPromise = function (data, time) {
+    return new Promise(function (resolve) {
+        if (time) {
+            setTimeout(function () {
+                resolve(data);
+            }, time || 1);
+        }
+        else {
+            resolve(data);
+        }
+    });
+};
+/**
+ * 延迟等待
+ * @param {*} time 延迟时间
+ */
+const bsWait = function (time) {
+    return bsPromise(null, time);
+};
 /**
  * 获取值通过路径 getValueByPath({ id: { number: 1}}, "id.number")
  * @param {*} obj 对象
@@ -96,6 +146,33 @@ const getValueByPath = (obj, path) => {
     return o;
 };
 /**
+ * 给对象设置值 setValueByPath({ id: { number: 1}}, "id.number", 2)
+ * @param {*} obj 对象
+ * @param {*} path 路径
+ * @param {*} value 值
+ */
+const setValueByPath = (obj, path, value) => {
+    var reg = /(?:(?:^|\.)([^\.\[\]]+))|(?:\[([^\[\]]+)\])/g;
+    var names = [];
+    var name = null;
+    while ((name = reg.exec(path)) != null) {
+        names.push(name[1] || name[2]);
+    }
+    if (names.length === 0) {
+        return obj;
+    }
+    setValues(obj);
+    function setValues(obj) {
+        const key = names[0];
+        obj[names[0]] = names.length === 1 ? value : obj[names[0]] || {};
+        names.shift();
+        if (names.length) {
+            setValues(obj[key]);
+        }
+    }
+    return obj;
+};
+/**
  * 是否为数组且数组长度>0
  * @param {*} arr
  */
@@ -109,6 +186,18 @@ const isArray = (arr) => {
 const isObject = (obj) => {
     return obj && obj instanceof Object && !(obj instanceof Array) && !!Object.keys(obj).length;
 };
+
+var utils = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    isArray: isArray,
+    isObject: isObject,
+    bsWait: bsWait,
+    bsPromise: bsPromise,
+    bsCheck: bsCheck,
+    bsRunWhen: bsRunWhen,
+    setValueByPath: setValueByPath,
+    getValueByPath: getValueByPath
+});
 
 const { Group } = Checkbox;
 const SelectCompanent = props => {
@@ -159,6 +248,114 @@ const SelectCompanent = props => {
         }),
         show_empty && renderEmpty()));
 };
+
+//! moment.js locale configuration
+(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   factory(global.moment);
+}(undefined, (function (moment) {
+
+    var zhCn = moment.defineLocale('zh-cn', {
+        months : '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'),
+        monthsShort : '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'),
+        weekdays : '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+        weekdaysShort : '周日_周一_周二_周三_周四_周五_周六'.split('_'),
+        weekdaysMin : '日_一_二_三_四_五_六'.split('_'),
+        longDateFormat : {
+            LT : 'HH:mm',
+            LTS : 'HH:mm:ss',
+            L : 'YYYY/MM/DD',
+            LL : 'YYYY年M月D日',
+            LLL : 'YYYY年M月D日Ah点mm分',
+            LLLL : 'YYYY年M月D日ddddAh点mm分',
+            l : 'YYYY/M/D',
+            ll : 'YYYY年M月D日',
+            lll : 'YYYY年M月D日 HH:mm',
+            llll : 'YYYY年M月D日dddd HH:mm'
+        },
+        meridiemParse: /凌晨|早上|上午|中午|下午|晚上/,
+        meridiemHour: function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === '凌晨' || meridiem === '早上' ||
+                    meridiem === '上午') {
+                return hour;
+            } else if (meridiem === '下午' || meridiem === '晚上') {
+                return hour + 12;
+            } else {
+                // '中午'
+                return hour >= 11 ? hour : hour + 12;
+            }
+        },
+        meridiem : function (hour, minute, isLower) {
+            var hm = hour * 100 + minute;
+            if (hm < 600) {
+                return '凌晨';
+            } else if (hm < 900) {
+                return '早上';
+            } else if (hm < 1130) {
+                return '上午';
+            } else if (hm < 1230) {
+                return '中午';
+            } else if (hm < 1800) {
+                return '下午';
+            } else {
+                return '晚上';
+            }
+        },
+        calendar : {
+            sameDay : '[今天]LT',
+            nextDay : '[明天]LT',
+            nextWeek : '[下]ddddLT',
+            lastDay : '[昨天]LT',
+            lastWeek : '[上]ddddLT',
+            sameElse : 'L'
+        },
+        dayOfMonthOrdinalParse: /\d{1,2}(日|月|周)/,
+        ordinal : function (number, period) {
+            switch (period) {
+                case 'd':
+                case 'D':
+                case 'DDD':
+                    return number + '日';
+                case 'M':
+                    return number + '月';
+                case 'w':
+                case 'W':
+                    return number + '周';
+                default:
+                    return number;
+            }
+        },
+        relativeTime : {
+            future : '%s内',
+            past : '%s前',
+            s : '几秒',
+            ss : '%d 秒',
+            m : '1 分钟',
+            mm : '%d 分钟',
+            h : '1 小时',
+            hh : '%d 小时',
+            d : '1 天',
+            dd : '%d 天',
+            M : '1 个月',
+            MM : '%d 个月',
+            y : '1 年',
+            yy : '%d 年'
+        },
+        week : {
+            // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
+            dow : 1, // Monday is the first day of the week.
+            doy : 4  // The week that contains Jan 4th is the first week of the year.
+        }
+    });
+
+    return zhCn;
+
+})));
 
 const format = {
     year: "YYYY",
@@ -328,4 +525,89 @@ const onRenderHooks = (item, defaultValue = {}) => {
     return (React.createElement(BaseForm, Object.assign({ id: `form-${(item === null || item === void 0 ? void 0 : item.element_id) || ""}-${(item === null || item === void 0 ? void 0 : item.name) || ""}`, key: `form-${(item === null || item === void 0 ? void 0 : item.element_id) || ""}-${item.name}`, disabled: (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.disabled) === 1 || (defaultValue === null || defaultValue === void 0 ? void 0 : defaultValue.disabled) === true }, item, { value: value })));
 };
 
-export { BaseForm, SelectCompanent as CheckBox, DatePickerComponent as DatePicker, DatetimePicker as DateTimePicker, Form, InputCompanent as Input, InputNumberComponent as InputNumber, SelectCompanent$1 as Radio, SelectCompanent$2 as Select, onRenderHooks };
+var style = ".form-search {\n  margin: 12px 20px;\n}\n.mr10 {\n  margin-right: 10px;\n}\n";
+
+const LIMITSEARCH = 3;
+const SearchList = (props) => {
+    const { conditions, defaultValues, onSearch, is_view, btnStyle, styles } = props;
+    if (!isArray(conditions)) {
+        console.log("conditions is not array!!");
+        return null;
+    }
+    const methods = useForm({
+        defaultValues
+    });
+    const { getValues, triggerValidation } = methods;
+    const [show_more_visible, setShowmore] = useState(false);
+    // 搜索
+    const handSearch = async () => {
+        const resValidation = await triggerValidation();
+        const data = getValues({ nest: true });
+        console.log("data =>", resValidation, data);
+        onSearch(data);
+    };
+    // 重置
+    const handReset = () => { };
+    const commonButtons = () => {
+        return (React.createElement(Fragment, null,
+            React.createElement(Button, { type: "primary", className: style.mr10, disabled: is_view, onClick: handSearch, style: btnStyle }, "\u67E5\u8BE2"),
+            React.createElement(Button, { onClick: handReset, disabled: is_view, style: btnStyle }, "\u91CD\u7F6E")));
+    };
+    const moreButtons = () => {
+        return (React.createElement(Button, { type: !show_more_visible ? undefined : "primary", icon: !show_more_visible ? "down" : "up", style: btnStyle, className: style.mr10, disabled: is_view, onClick: () => setShowmore(v => !v) }, "\u66F4\u591A"));
+    };
+    const is_show_more_btn = conditions.length > LIMITSEARCH || conditions.some(l => l.is_high);
+    return (React.createElement(FormContext, Object.assign({}, methods),
+        React.createElement("section", { className: classnames(style["form-search"]), style: styles },
+            React.createElement(Form, { data: conditions }),
+            is_show_more_btn && moreButtons(),
+            commonButtons())));
+};
+
+var styles$1 = ".ys-table {\n  width: 100%;\n  overflow: auto;\n  user-select: none;\n  -moz-user-select: none;\n  -webkit-user-select: none;\n}\n.ys-table :global .ant-table-thead > tr > th {\n  padding: 4px 6px;\n  color: #7ab2ff;\n  font-weight: bold;\n  white-space: nowrap;\n  background: #f0f8ff;\n}\n.ys-table :global .ant-table-tbody > tr > td {\n  cursor: auto;\n  padding: 8px 6px;\n  white-space: nowrap;\n}\n.ys-table .ys-table-text {\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n";
+
+const TableComponent = props => {
+    const { columns, rowKey, total, page, loading, pageSize, onChange, dataSource } = props, other = __rest(props, ["columns", "rowKey", "total", "page", "loading", "pageSize", "onChange", "dataSource"]);
+    const onPageChange = (params, filters, sorter, extra) => {
+        const _a = params || {}, { showQuickJumper, showSizeChanger, simple, showTotal, total, current: page } = _a, other = __rest(_a, ["showQuickJumper", "showSizeChanger", "simple", "showTotal", "total", "current"]);
+        const { pageSize: per_page } = other || {};
+        onChange && onChange(Object.assign({ page, per_page, page_size: per_page }, other), filters, sorter, extra);
+    };
+    const pagination = {
+        total: Number(total) || 0,
+        current: Number(page) || 1,
+        pageSize: Number(pageSize) || 10,
+        showQuickJumper: false,
+        showSizeChanger: true,
+        pageSizeOptions: ["10", "20", "30", "40", "50"],
+        showTotal: (total) => `共有${total}条`
+    };
+    /**
+     * 改变表格宽度
+     * ResizeableTitle
+     */
+    const ResizeableTitle = (props) => {
+        const _a = props || {}, { onResize, width = 100 } = _a, restProps = __rest(_a, ["onResize", "width"]);
+        if (!width) {
+            return React.createElement("th", Object.assign({}, restProps));
+        }
+        return (React.createElement(Resizable, { height: 0, width: width, onResize: onResize, draggableOpts: { enableUserSelectHack: false } },
+            React.createElement("th", Object.assign({}, restProps))));
+    };
+    const components = {
+        header: {
+            cell: ResizeableTitle
+        }
+    };
+    return (React.createElement("div", { className: styles$1["ys-table"] },
+        React.createElement(Table, Object.assign({ bordered: true }, other, { loading: loading, columns: columns, rowKey: rowKey, onChange: onPageChange, components: components, pagination: total ? pagination : false, dataSource: dataSource }))));
+};
+
+const DataTable = props => {
+    const { conditions, defaultValues, onSearch, columns, data } = props;
+    return (React.createElement(Fragment, null,
+        React.createElement(SearchList, { conditions: conditions, defaultValues: defaultValues, onSearch: onSearch }),
+        React.createElement(TableComponent, { columns: columns, dataSource: data })));
+};
+
+export { DataTable, FormItems as Form, utils as Utils };

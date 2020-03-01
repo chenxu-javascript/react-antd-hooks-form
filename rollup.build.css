@@ -1,12 +1,13 @@
-.error {
-  width: auto;
-  min-height: 16px;
-  line-height: 18px;
-  color: #f5222d;
-  word-break: break-all;
-  word-wrap: break-word;
+.form-search {
+  margin: 12px 20px;
 }
-ant: tabular-nums;
+.mr10 {
+  margin-right: 10px;
+}
+: 0;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  font-variant: tabular-nums;
   line-height: 1.5;
   list-style: none;
   font-feature-settings: 'tnum';

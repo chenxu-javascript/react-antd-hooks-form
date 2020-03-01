@@ -3,6 +3,7 @@ import { isArray } from "./../../../utils/utils";
 import { Checkbox } from "antd";
 import { IProps } from "./interface";
 
+
 const { Group } = Checkbox;
 const SelectCompanent: React.FC<IProps> = props => {
   const {
