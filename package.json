@@ -1,6 +1,6 @@
 {
   "name": "antd-hooks-form",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "form表单 基于二次封装",
   "main": "src/index.ts",
   "module": "src/index.ts",
@@ -34,7 +34,7 @@
     "@types/react-test-renderer": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
-    "antd": "^3.26.12",
+    "antd": "^4.0.0",
     "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
     "classnames": "^2.2.6",
@@ -61,7 +61,7 @@
     "webpack-cli": "^3.3.11"
   },
   "peerDependencies": {
-    "antd": "^3.26.12",
+    "antd": "^4.0.0",
     "react": "^16.8.0",
     "react-hook-form": "^4.8.2"
   },

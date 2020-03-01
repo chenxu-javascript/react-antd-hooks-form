@@ -21,7 +21,6 @@ const config: IConfig = {
         dynamicImport: { webpackChunkName: true },
         title: 'app',
         dll: true,
-
         routes: {
           exclude: [
             /models\//,
