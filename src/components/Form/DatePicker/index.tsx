@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DatePicker } from "antd";
 import moment from "moment";
 import { isObject } from "./../../../utils/utils";
@@ -13,6 +13,9 @@ const format: any = {
 
 const DatePickerComponent: React.FC<IProps> = props => {
   const { placeholder = "请选择", mode = "date", onChange, ...otherparams } = props;
+  useEffect(() => {
+    moment.locale("zh-cn");
+  }, [])
   const { value, defaultValue } = otherparams;
   const [_value, setValue] = useState(value || defaultValue || undefined);
   const handleOnChange = (value: any) => {

@@ -33,7 +33,6 @@ const BaseForm: React.FC<IProps> = props => {
     console.log(`${input_type} 当前组件不支持`);
     return null;
   }
-
   return (
     <div className="hooks-row hooks-form-item" key={name || new Date().getTime()}>
       {!!label && (

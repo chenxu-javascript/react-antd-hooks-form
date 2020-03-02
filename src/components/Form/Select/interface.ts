@@ -7,7 +7,5 @@ export interface IProps {
   allowClear?: boolean;
   value?: any;
   show_empty?: boolean;
-  size?: "large" | "default" | "small";
-  mode?: "default" | "multiple";
   [propsName: string]: any;
 }

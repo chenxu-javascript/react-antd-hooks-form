@@ -3,7 +3,6 @@ export interface IProps {
   disabled?: boolean;
   allowClear?: boolean;
   value?: any;
-  size?: "large" | "default" | "small";
   mode?: string;
   [propsName: string]: any;
 }

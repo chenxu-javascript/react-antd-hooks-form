@@ -4,6 +4,7 @@ import { DataTable } from 'antd-hooks-form';
 // import Search from "@components/DataTable/Search";
 // import Table from "@components/DataTable/Table";
 import { getTableColumns } from "./contanst";
+
 const SearchList = [
   {
     label: "表单名称",
@@ -52,6 +53,10 @@ const SearchList = [
       { name: "多层级", id: "TREE" }
     ]
   },
+  // {
+  //   input_type: "Customize",
+  //   dom: <div>我是自定义dom数据</div>
+  // },
   {
     label: "层级类型",
     name: "data_structure_m",

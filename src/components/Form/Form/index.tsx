@@ -1,6 +1,6 @@
 import React from "react";
 // import { useForm, FormContext } from "react-hook-form";
-import { onRenderHooks } from "./../index";
+import HooksItem from "./../HooksItem";
 import IProps from "./interface";
 import "./index.less";
 
@@ -17,8 +17,8 @@ const Form: React.FC<IProps> = props => {
   const renderForm = () => {
     return (
       <>
-        {data.map((l: any) => {
-          return onRenderHooks(l, defaultValues);
+        {data.map((l: any, index: number) => {
+          return <HooksItem key={index} item={l} defaultValue={defaultValues} />;
         })}
       </>
     );
