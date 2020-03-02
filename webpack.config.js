@@ -11,6 +11,10 @@ module.exports = {
     path: path.resolve(__dirname, "./dist"),
     filename: "[name].min.js",
     publicPath: "./dist/",
+    chunkFilename: '[id].js',
+    libraryExport: 'default',
+    library: 'ELEMENT',
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
@@ -31,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        loaders: ["style-loader", "css-loader"],
       },
       {
         test: /\.less$/,
@@ -67,44 +71,6 @@ module.exports = {
         include: [path.resolve(__dirname, "../src")],
         exclude: /node_modules/
       },
-      {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/, //媒体文件
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 10240,
-              fallback: {
-                loader: "file-loader",
-                options: {
-                  name: "media/[name].[hash:8].[ext]"
-                }
-              }
-            }
-          }
-        ],
-        include: [path.resolve(__dirname, "../src")],
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(jpe?g|png|gif)$/i, //图片文件
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 10240,
-              fallback: {
-                loader: "file-loader",
-                options: {
-                  name: "img/[name].[hash:8].[ext]"
-                }
-              }
-            }
-          }
-        ],
-        include: [path.resolve(__dirname, "../src")],
-        exclude: /node_modules/
-      }
     ]
   },
   resolve: {
