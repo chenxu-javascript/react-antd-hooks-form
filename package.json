@@ -1,6 +1,6 @@
 {
   "name": "antd-hooks-form",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "form表单 基于二次封装",
   "main": "src/index.ts",
   "module": "src/index.ts",
