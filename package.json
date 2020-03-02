@@ -4,14 +4,11 @@
   "description": "form表单 基于二次封装",
   "main": "src/index.ts",
   "module": "src/index.ts",
-  "types": "dist/index.d.ts",
+  "types": "src/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "yarn clean && webpack --config webpack.config.js --progress --colors",
-    "build:modern": "rollup -c",
-    "build:min": "rollup -c rollup.min.config.js",
-    "build:ie11": "rollup -c rollup.ie11.config.js"
+    "build": "yarn clean && webpack --config webpack.config.js --progress --colors"
   },
   "keywords": [
     "react-hooks-form"

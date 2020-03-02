@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { DataTable } from 'antd-hooks-form';
 import { getTableColumns } from "./contanst";
+import style from "./index.less";
 
 const SearchList = [
   {
@@ -75,13 +76,15 @@ const Bsentity = () => {
   //   </Fragment>
   // );
   return (
-    <DataTable
-      onSearch={onSearch}
-      conditions={SearchList}
-      defaultValues={query}
-      data={[]}
-      columns={getTableColumns({ onGoToPage })}
-    />
+    <div className={style.main}>
+      <DataTable
+        onSearch={onSearch}
+        conditions={SearchList}
+        defaultValues={query}
+        data={[]}
+        columns={getTableColumns({ onGoToPage })}
+      />
+    </div>
   );
 };
 
