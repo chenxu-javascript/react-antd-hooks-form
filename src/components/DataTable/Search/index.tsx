@@ -10,7 +10,7 @@ import style from "./index.less";
 
 const LIMITSEARCH = 3;
 const SearchList = (props: IPropsSearch) => {
-  const { conditions, defaultValues, onSearch, is_view, btnStyle, styles } = props;
+  const { conditions, defaultValues, onSearch, is_view, btnStyle, styles, show_more_btn = false } = props;
   if (!isArray(conditions)) {
     console.log("conditions is not array!!");
     return null;
@@ -65,14 +65,25 @@ const SearchList = (props: IPropsSearch) => {
       </Button>
     );
   };
-
-  const is_show_more_btn = conditions.length > LIMITSEARCH || conditions.some(l => l.is_high);
+  const is_show_more_btn = show_more_btn && (conditions.length > LIMITSEARCH || conditions.some(l => l.is_high));
   return (
     <FormContext {...methods}>
       <section className={classnames(style["form-search"])} style={styles}>
-        <Form data={conditions} />
-        {is_show_more_btn && moreButtons()}
-        {commonButtons()}
+        <Form
+          data={[
+            ...conditions,
+            {
+              input_type: "Customize",
+              name: 'Customize',
+              dom: (
+                <Fragment>
+                  {is_show_more_btn && moreButtons()}
+                  {commonButtons()}
+                </Fragment>
+              )
+            }
+          ]}
+        />
       </section>
     </FormContext>
   );

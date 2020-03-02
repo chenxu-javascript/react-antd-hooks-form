@@ -7,7 +7,6 @@ interface IProps {
 }
 const HooksItem: React.FC<IProps> = props => {
   const { item, defaultValue } = props;
-  console.log(123);
   if (!item) return null;
   if (item.is_hide) return null;
   const value: any = getValueByPath(defaultValue, item?.name) || item?.defaultValue;

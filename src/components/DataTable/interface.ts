@@ -22,6 +22,9 @@ export interface TableItem {
 export interface IProps {
   conditions: FormItem[];
   columns: TableItem[];
+  data: any[];
+  onSearch: (data: any) => void;
+  defaultValues?: any;
   [propsName: string]: any;
 }
 

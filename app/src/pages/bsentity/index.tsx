@@ -1,8 +1,5 @@
 import React, { Fragment } from "react";
 import { DataTable } from 'antd-hooks-form';
-// import 'antd-hooks-form/dist/antd-hooks-form.css';
-// import Search from "@components/DataTable/Search";
-// import Table from "@components/DataTable/Table";
 import { getTableColumns } from "./contanst";
 
 const SearchList = [
@@ -53,10 +50,6 @@ const SearchList = [
       { name: "多层级", id: "TREE" }
     ]
   },
-  // {
-  //   input_type: "Customize",
-  //   dom: <div>我是自定义dom数据</div>
-  // },
   {
     label: "层级类型",
     name: "data_structure_m",
@@ -81,7 +74,15 @@ const Bsentity = () => {
   //     <Table columns={getTableColumns({ onGoToPage })} dataSource={data} />
   //   </Fragment>
   // );
-  return <DataTable conditions={SearchList} columns={getTableColumns({ onGoToPage })} />;
+  return (
+    <DataTable
+      onSearch={onSearch}
+      conditions={SearchList}
+      defaultValues={query}
+      data={[]}
+      columns={getTableColumns({ onGoToPage })}
+    />
+  );
 };
 
 export default Bsentity;
