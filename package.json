@@ -2,17 +2,23 @@
   "name": "antd-hooks-form",
   "version": "1.0.0",
   "description": "form表单 基于二次封装",
-  "main": "src/index.ts",
+  "main": "dist/antd-hooks-form.js",
   "module": "dist/antd-hooks-form.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "yarn clean && yarn build:modern && yarn build:ie11 && yarn build:min",
+    "build": "yarn clean && yarn build:modern",
     "build:modern": "rollup -c",
+    "start": "yarn clean && rollup -c -w",
     "build:min": "rollup -c rollup.min.config.js",
     "build:ie11": "rollup -c rollup.ie11.config.js"
   },
+  "files": [
+    "dist",
+    "src",
+    "package.json"
+  ],
   "keywords": [
     "react-hooks-form"
   ],
@@ -34,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
     "antd": "^3.26.12",
+    "autoprefixer": "^9.7.4",
     "classnames": "^2.2.6",
     "eslint": "^5.4.0",
     "eslint-config-umi": "^1.4.0",
@@ -50,8 +57,12 @@
     "react-test-renderer": "^16.12.0",
     "rollup": "^1.31.1",
     "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-postcss": "^2.1.1",
     "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-typescript2": "^0.26.0",
+    "rollup-plugin-url": "^3.0.1",
     "typescript": "^3.8.2"
   },
   "peerDependencies": {
@@ -63,6 +74,7 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "babel-plugin-import": "^1.13.0",
     "moment": "^2.24.0",
     "rollup-plugin-less": "^1.1.2"
   },
