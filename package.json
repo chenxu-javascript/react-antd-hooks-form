@@ -13,6 +13,7 @@
   "keywords": [
     "react-hooks-form"
   ],
+  "files": ["dist"],
   "author": "chenxu",
   "license": "ISC",
   "devDependencies": {
