@@ -5,7 +5,7 @@ import { IPropsSearch } from "./../interface";
 import Form from "./../../Form/Form";
 import { useForm, FormContext } from "react-hook-form";
 import classnames from "classnames";
-import { UpOutlined, DownOutlined } from "@ant-design/icons";
+// import { UpOutline, DownOutline } from "@ant-design/icons";
 import style from "./index.less";
 
 const LIMITSEARCH = 3;
@@ -55,7 +55,7 @@ const SearchList = (props: IPropsSearch) => {
     return (
       <Button
         type={!show_more_visible ? undefined : "primary"}
-        icon={!show_more_visible ? <DownOutlined /> : <UpOutlined />}
+        // icon={!show_more_visible ? <DownOutline /> : <UpOutline />}
         style={btnStyle}
         className={style.mr10}
         disabled={is_view}
