@@ -4,7 +4,7 @@
   "description": "form表单 基于二次封装",
   "main": "src/index.ts",
   "module": "src/index.ts",
-  "types": "src/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,9 @@
   "keywords": [
     "react-hooks-form"
   ],
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "chenxu",
   "license": "ISC",
   "devDependencies": {

@@ -14,7 +14,7 @@ const format: any = {
 const DatePickerComponent: React.FC<IProps> = props => {
   const { placeholder = "请选择", mode = "date", onChange, ...otherparams } = props;
   useEffect(() => {
-    moment.locale("zh-cn");
+    // moment.locale("zh-cn");
   }, [])
   const { value, defaultValue } = otherparams;
   const [_value, setValue] = useState(value || defaultValue || undefined);
