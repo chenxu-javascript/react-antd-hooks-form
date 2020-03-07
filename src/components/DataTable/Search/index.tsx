@@ -41,7 +41,7 @@ const SearchList = (props: IPropsSearch) => {
           onClick={handSearch}
           style={btnStyle}
         >
-          查询
+          查询1
         </Button>
         <Button onClick={handReset} disabled={is_view} style={btnStyle}>
           重置

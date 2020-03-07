@@ -1,7 +1,4 @@
-declare module "*.css" {
-  const content: any;
-  export default content;
-}
+declare module "*.css";
 declare module "*.less";
 declare module "*.svg";
 declare module "*.png";
